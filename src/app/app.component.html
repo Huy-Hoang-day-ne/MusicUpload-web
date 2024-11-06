@@ -53,14 +53,16 @@
   </form>
   <div id="music-list">
     <h5>LIST OF MUSIC</h5>
-    @for (music of musics;track $index){
-      <div class="music-list">
-        <p>{{music.title}}</p>
-        <p>{{music.artist}}</p>
-        <audio controls>
-          <source [src]="music.mp3" type="audio/mpeg">
-        </audio>
-      </div>
-    }
+    <div id="music-container">
+      @for (music of musics;track $index){
+        <div class="music-list">
+          <h6>{{music.title}}</h6>
+          <p>{{music.artist}}</p>
+          <audio controls>
+            <source [src]="music.mp3" type="audio/mpeg">
+          </audio>
+        </div>
+      }
+    </div>
 </div>
 </div>

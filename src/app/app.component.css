@@ -22,3 +22,9 @@
 .music-list{
   border-bottom: hotpink 2px solid;
 }
+#music-container{
+  max-height: 650px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+}
