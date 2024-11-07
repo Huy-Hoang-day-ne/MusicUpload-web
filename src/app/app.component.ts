@@ -13,6 +13,7 @@ import {provideNativeDateAdapter} from '@angular/material/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatButtonModule} from '@angular/material/button';
+import {window} from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -106,15 +107,18 @@ export class AppComponent implements OnInit {
       console.error('Error getting documents: ', error);
     });
   }
-
   // Summit upload music to firebase
   postData() {
     let newMusic = this.musicFormGroup.value;
     this.uploadmusic.postData(newMusic).then(() => {
       this.newSongId = Date.now().toString()
       this.musicFormGroup.reset()
+      this.resetPage();
       // this.getData();
     });
+  }
+  resetPage(){
+    location.reload();
   }
 
   // Edit music
