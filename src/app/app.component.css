@@ -22,9 +22,23 @@
 .music-list{
   border-bottom: hotpink 2px solid;
 }
+.music-list button{
+  color: black;
+  border: none;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+.music-list-content{
+  display: flex;
+}
 #music-container{
+  width: 400px;
   max-height: 650px;
   overflow-y: auto;
   border: 1px solid #ccc;
   padding: 10px;
 }
+

@@ -1,8 +1,26 @@
 import { Injectable } from '@angular/core';
 import {MusicModel} from '../model/music.model';
-import {collection, deleteDoc, doc, Firestore, getDoc, getDocs, getFirestore, setDoc} from '@angular/fire/firestore';
+import {
+  collection,
+  deleteDoc,
+  doc,
+  Firestore,
+  getDoc,
+  getDocs,
+  getFirestore, onSnapshot,
+  query,
+  setDoc, where
+} from '@angular/fire/firestore';
 import {Observable} from 'rxjs';
-import {Storage, ref, uploadBytesResumable, getDownloadURL} from '@angular/fire/storage';
+import {
+  Storage,
+  ref,
+  uploadBytesResumable,
+  getDownloadURL,
+  deleteObject,
+  getMetadata,
+  listAll
+} from '@angular/fire/storage';
 import {getApp, getApps, initializeApp} from '@angular/fire/app';
 
 @Injectable({
@@ -29,6 +47,17 @@ export class UploadmusicService {
     const querySnapshot = await getDocs(collection(this.db, 'music'));
     return querySnapshot.docs.map(doc => doc.data() as MusicModel);
   }
+  //get music by ID
+  async getMusicById(id: string): Promise<MusicModel | undefined> {
+    const docRef = doc(this.db, 'music', id);
+    const docSnap = await getDoc(docRef);
+    if (docSnap.exists()) {
+      return docSnap.data() as MusicModel;
+    } else {
+      console.log('No such document!');
+      return undefined;
+    }
+  }
   // Post data to firebase
   async postData(newmusic: MusicModel) {
     console.log(newmusic)
@@ -38,17 +67,16 @@ export class UploadmusicService {
       console.log(e)
     }
   }
-  // Update data in firebase
-  async updateData(updatedMusic: MusicModel) {
-    const docRef = doc(this.db, 'Music');
-    await setDoc(docRef, { data: updatedMusic }, { merge: true });
-    console.log('Update success');
-  }
   // Delete data in firebase
-  async deleteData(deletemusci: MusicModel) {
-    const docRef = doc(this.db, 'Music');
-    // await deleteDoc(docRef,{data:deletemusci},);
-    console.log('Delete success');
+  async deleteMusicById(id: string): Promise<void> {
+    const docRef = doc(this.db, 'music', id);
+    try {
+      await deleteDoc(docRef);
+      console.log('Document delete success');
+    } catch (error) {
+      console.error('Error deleting document: ', error);
+      throw error;
+    }
   }
   //upload file jpg and mp3 to firebase storage
   uploadFile(
@@ -83,4 +111,38 @@ export class UploadmusicService {
       );
     });
   }
+  searchMusicRealtime(searchTerm: string, callback: (results: MusicModel[]) => void): void {
+    const musicCollection = collection(this.db, 'music');
+
+    const titleQuery = query(musicCollection, where('title', '>=', searchTerm), where('title', '<=', searchTerm + '\uf8ff'));
+    const artistQuery = query(musicCollection, where('artist', '>=', searchTerm), where('artist', '<=', searchTerm + '\uf8ff'));
+    const singerQuery = query(musicCollection, where('singer', '>=', searchTerm), where('singer', '<=', searchTerm + '\uf8ff'));
+
+    const results: MusicModel[] = [];
+    const uniqueIds = new Set<string>(); // Bộ lọc các ID duy nhất
+
+    const addToResults = (querySnapshot: any) => {
+      querySnapshot.docs.forEach((doc: any) => {
+        const music = doc.data() as MusicModel;
+        if (!uniqueIds.has(music.id)) { // Kiểm tra trùng lặp ID
+          uniqueIds.add(music.id);
+          results.push(music);
+        }
+      });
+    };
+
+    onSnapshot(titleQuery, (querySnapshot) => {
+      addToResults(querySnapshot);
+    });
+
+    onSnapshot(artistQuery, (querySnapshot) => {
+      addToResults(querySnapshot);
+    });
+
+    onSnapshot(singerQuery, (querySnapshot) => {
+      addToResults(querySnapshot);
+      callback(results); // Trả về kết quả cuối cùng
+    });
+  }
+
 }

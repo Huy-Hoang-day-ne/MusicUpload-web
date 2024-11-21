@@ -19,7 +19,7 @@ import {window} from 'rxjs';
   selector: 'app-root',
   standalone: true,
   providers: [provideNativeDateAdapter()],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   imports: [
     RouterOutlet,
     FormsModule,
@@ -46,6 +46,7 @@ export class AppComponent implements OnInit {
   newSongCoverLink = '';
   musicFormGroup !: FormGroup;
   musics: MusicModel[] = [];
+  searchTerm: string = '';
 
   constructor(public uploadmusic: UploadmusicService) {
     this.musicFormGroup = new FormGroup({
@@ -107,6 +108,16 @@ export class AppComponent implements OnInit {
       console.error('Error getting documents: ', error);
     });
   }
+  // Get music by id
+  getMusicById(id: string) {
+    this.uploadmusic.getMusicById(id).then((music) => {
+      if (music) {
+        this.musicFormGroup.setValue(music);
+      }
+    }).catch((error) => {
+      console.error('Error getting document: ', error);
+    });
+  }
   // Summit upload music to firebase
   postData() {
     let newMusic = this.musicFormGroup.value;
@@ -120,18 +131,18 @@ export class AppComponent implements OnInit {
   resetPage(){
     location.reload();
   }
-
-  // Edit music
-  updateData() {
-    // this.uploadmusic.updateData(this.music).then(() => {
-    //   this.getData();
-    // });
+  // Delete music by id
+  deleteMusicById(id: string) {
+    console.log('Deleting music with id:', id); // Debug log
+    this.uploadmusic.deleteMusicById(id).then(() => {
+      this.getMusicList();
+    }).catch((error) => {
+      console.error('Error deleting document: ', error);
+    });
   }
-
-  // Delete music
-  deleteData() {
-    // this.uploadmusic.deleteData().then(() => {
-    //   this.getData();
-    // });
+  searchMusic() {
+    this.uploadmusic.searchMusicRealtime(this.searchTerm, (results) => {
+      this.musics = results;
+    });
   }
 }
