@@ -114,7 +114,7 @@ export class UploadmusicService {
   searchMusicRealtime(searchTerm: string, callback: (results: MusicModel[]) => void): void {
     const musicCollection = collection(this.db, 'music');
 
-    const titleQuery = query(musicCollection, where('title', '>=', searchTerm), where('title', '<=', searchTerm + '\uf8ff'));
+    const titleQuery = query(musicCollection, where('title','>=', searchTerm), where('title', '<=', searchTerm + '\uf8ff'));
     const artistQuery = query(musicCollection, where('artist', '>=', searchTerm), where('artist', '<=', searchTerm + '\uf8ff'));
     const singerQuery = query(musicCollection, where('singer', '>=', searchTerm), where('singer', '<=', searchTerm + '\uf8ff'));
 

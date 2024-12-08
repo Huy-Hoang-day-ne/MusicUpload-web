@@ -1,62 +1,301 @@
-#container{
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 100vh;
-    width: 100%;
-    background-color: #f5f5f5;
+/*#container{*/
+/*    display: flex;*/
+/*    justify-content: space-around;*/
+/*    align-items: center;*/
+/*    height: 100vh;*/
+/*    width: 100%;*/
+/*    background-color: #f5f5f5;*/
+/*}*/
+/*#upload{*/
+/*    display: flex;*/
+/*    justify-content: center;*/
+/*    align-items: center;*/
+/*    flex-direction: column;*/
+/*    border: 2px dashed #ccc;*/
+/*    padding: 20px;*/
+/*    cursor: pointer;*/
+/*    border-radius: 5px;*/
+/*}*/
+/*.example-full-width {*/
+/*  width: 100%;*/
+/*}*/
+/*.music-list{*/
+/*  border-bottom: orange 2px solid;*/
+/*}*/
+/*.music-list button{*/
+/*  color: black;*/
+/*  border: none;*/
+/*  text-align: center;*/
+/*  text-decoration: none;*/
+/*  display: inline-block;*/
+/*  font-size: 16px;*/
+/*  cursor: pointer;*/
+/*}*/
+/*.music-list-content{*/
+/*  display: flex;*/
+/*}*/
+/*input::file-selector-button {*/
+/*  font-weight: bold;*/
+/*  font-size: 14px;*/
+/*  color: black;*/
+/*  padding: 0.5em;*/
+/*  border: thin solid orange;*/
+/*  border-radius: 50px;*/
+/*  background-color: orange;*/
+/*  cursor: pointer;*/
+/*}*/
+/*input::file-selector-button:hover {*/
+/*  background-color: black;*/
+/*  color: orange;*/
+/*  border: thin solid black;*/
+/*}*/
+/*#music-container{*/
+/*  width: 400px;*/
+/*  max-height: 650px;*/
+/*  overflow-y: auto;*/
+/*  border: 1px solid #ccc;*/
+/*  padding: 10px;*/
+/*}*/
+/*mat-label{*/
+/*  font-size: 18px;*/
+/*  color: orange;*/
+/*}*/
+
+
+
+/* Container chính */
+#container {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  height: 100vh;
+  width: 100%;
+  background-color: #000; /* Nền đen */
+  overflow-y: auto;
+  gap: 100px;
 }
-#upload{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border: 2px dashed #ccc;
-    padding: 20px;
-    cursor: pointer;
-    border-radius: 5px;
+
+/* Form upload nhạc */
+#upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 2px dashed orange; /* Viền cam */
+  padding: 20px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: #111; /* Nền đen nhạt hơn */
+  color: white; /* Chữ trắng */
+  max-width: 400px;
 }
+
+#upload h5 {
+  color: orange; /* Tiêu đề màu cam */
+  margin-bottom: 16px;
+}
+
 .example-full-width {
   width: 100%;
+  color: white; /* Chữ trắng */
 }
-.music-list{
-  border-bottom: orange 2px solid;
+
+mat-form-field {
+  width: 100%;
+  color: white;
 }
-.music-list button{
+
+mat-label {
+  font-size: 18px;
+  color: orange;/* Tiêu đề trong ô màu cam */
+}
+
+mat-select {
+  color: white; /* Chữ trắng */
+
+}
+
+input::placeholder {
+  color: #ccc; /* Màu placeholder nhẹ */
+}
+
+.example-button-row button {
+  background-color: orange; /* Nút cam */
   color: black;
-  border: none;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  cursor: pointer;
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 10px 20px;
+  margin-top: 16px;
 }
-.music-list-content{
-  display: flex;
-}
-input::file-selector-button {
-  font-weight: bold;
-  font-size: 14px;
-  color: black;
-  padding: 0.5em;
-  border: thin solid orange;
-  border-radius: 50px;
-  background-color: orange;
-  cursor: pointer;
-}
-input::file-selector-button:hover {
+
+.example-button-row button:hover {
   background-color: black;
-  color: orange;
-  border: thin solid black;
+  color: orange; /* Hiệu ứng hover nút */
 }
-#music-container{
-  width: 400px;
+
+/* Danh sách nhạc */
+#music-list {
+  flex-grow: 1;
+  color: white;
+}
+
+#music-list h5 {
+  color: orange; /* Tiêu đề màu cam */
+  margin-bottom: 16px;
+}
+
+#search-bar mat-icon {
+  color: orange; /* Icon tìm kiếm màu cam */
+}
+
+#music-container {
   max-height: 650px;
   overflow-y: auto;
-  border: 1px solid #ccc;
+  border: 1px solid orange; /* Viền cam */
   padding: 10px;
+  background-color: #111; /* Nền đen nhạt */
+  color: white; /* Chữ trắng */
 }
-mat-label{
-  font-size: 18px;
-  color: orange;
+
+.music-list-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid orange; /* Viền cam */
+  padding: 10px 0;
+  margin-bottom: 10px;
+}
+
+/*.music-list {*/
+/*  flex: 1;*/
+/*}*/
+
+/*.music-list h6 {*/
+/*  color: white;*/
+/*  font-size: 16px;*/
+/*  margin-bottom: 8px;*/
+/*}*/
+
+/*.music-list p {*/
+/*  color: #ccc; !* Chữ phụ nhẹ hơn *!*/
+/*  margin: 4px 0;*/
+/*}*/
+.music-list {
+  margin-bottom: 20px; /* Khoảng cách giữa các mục nhạc */
+  padding-bottom: 10px;
+  color: white; /* Chữ trắng */
+}
+
+.music-title {
+  font-size: 31px;
+  color: orange; /* Tiêu đề màu cam */
+  margin-bottom: 10px;
+}
+
+.music-list audio {
+  width: 100%;
+  margin-top: 10px;
+  outline: none;
+  background-color: #111; /* Background color of the audio control */
+  color: orange; /* Color of the text and controls */
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px; /* Padding inside the audio control */
+}
+
+.music-info {
+  display: flex; /* Để hình và chi tiết nằm ngang */
+  gap: 16px; /* Khoảng cách giữa ảnh và chi tiết */
+}
+
+.music-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover; /* Đảm bảo hình ảnh không bị méo */
+  border-radius: 8px; /* Bo tròn góc ảnh */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Hiệu ứng đổ bóng */
+}
+
+.music-details {
+  display: flex;
+  flex-direction: column; /* Xếp các thẻ `<p>` theo cột */
+  justify-content: center; /* Căn giữa theo trục dọc */
+}
+
+.music-detail {
+  margin: 4px 0; /* Khoảng cách giữa các dòng */
+  font-weight: bold; /* In đậm chữ */
+  color: #ccc; /* Màu chữ nhẹ hơn để làm nổi bật */
+}
+
+.music-detail strong {
+  color: orange; /* Tô đậm phần tiêu đề (Nhạc Sĩ, Ca Sĩ, Thể Loại) */
+}
+
+.music-list audio {
+  margin-top: 10px;
+}
+
+.music-funtion button {
+  background-color: transparent;
+  border: none;
+  color: orange; /* Icon nút màu cam */
+  cursor: pointer;
+  padding: 5px;
+}
+
+.music-funtion button:hover {
+  color: white; /* Hiệu ứng hover màu trắng */
+}
+
+.music-funtion {
+  display: flex;
+  flex-direction: column; /* Sắp xếp các nút theo chiều dọc */
+  gap: 16px; /* Khoảng cách giữa các nút */
+}
+
+.button-container {
+display: flex;
+justify-content: center;
+align-items: center;
+  background: orange;
+  border: orangered 2px solid;
+  border-radius: 5px;
+}
+
+button {
+  display: flex;
+  flex-direction: column; /* Biểu tượng và nhãn nằm trên dưới */
+  align-items: center; /* Căn giữa biểu tượng và nhãn */
+  background-color: transparent; /* Nền trong suốt */
+  border: none; /* Không viền */
+  cursor: pointer;
+}
+
+button mat-icon {
+  font-size: 20px; /* Kích thước biểu tượng */
+  color: black; /* Màu biểu tượng */
+  margin-bottom: 4px; /* Khoảng cách dưới biểu tượng */
+
+}
+
+button span {
+  font-size: 14px; /* Kích thước nhãn */
+
+  color: black; /* Màu chữ trắng */
+}
+
+button:hover mat-icon {
+  color: white; /* Đổi màu biểu tượng khi hover */
+}
+
+button:hover span {
+  color: white; /* Đổi màu nhãn khi hover */
+}
+
+.icon-button {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 8px;
+
 }

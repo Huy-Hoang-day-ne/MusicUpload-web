@@ -27,7 +27,6 @@
           <mat-option value="R&B">R&B</mat-option>
           <mat-option value="Party">Party</mat-option>
           <mat-option value="HipHop&Rap">HipHop&Rap</mat-option>
-          <mat-option value="Electronic">Electronic</mat-option>
         </mat-select>
       </mat-form-field>
       <mat-form-field>
@@ -49,34 +48,49 @@
       </div>
     </div>
   </form>
+<!--  <img src="https://shorturl.at/rCvwN" style="width: 600px">-->
   <div id="music-list">
-    <h5>LIST OF MUSIC</h5>
+    <h5 STYLE="margin-top: 10px">LIST OF MUSIC</h5>
     <div id="search-bar">
       <mat-form-field class="example-full-width">
         <mat-label>Search Music</mat-label>
         <input matInput type="text" [(ngModel)]="searchTerm" (input)="searchMusic()">
+        <mat-icon matSuffix style="color: orange">search</mat-icon>
       </mat-form-field>
     </div>
     <div id="music-container">
       @for (music of musics;track $index){
         <div class="music-list-content">
-        <div class="music-list">
-          <h6>{{music.title}}</h6>
-          <p>Nhạc Sĩ: {{music.artist}}</p>
-          <p>Ca Sĩ: {{music.singer}}</p>
-          <audio controls>
-            <source [src]="music.mp3" type="audio/mpeg">
-          </audio>
+          <div class="music-list">
+            <h2 class="music-title">{{music.title}}</h2>
+            <div class="music-info">
+              <img [src]="music.image" alt="music-image" class="music-image">
+              <div class="music-details">
+                <p class="music-detail"><strong>Nhạc Sĩ:</strong> {{music.artist}}</p>
+                <p class="music-detail"><strong>Ca Sĩ:</strong> {{music.singer}}</p>
+                <p class="music-detail"><strong>Thể Loại:</strong> {{music.category}}</p>
+              </div>
+            </div>
+            <audio controls>
+              <source [src]="music.mp3" type="audio/mpeg">
+            </audio>
+          </div>
+          <div class="music-funtion">
+            <div class="button-container">
+              <button mat-button (click)="getMusicById(music.id)" class="icon-button">
+                <span>Edit</span>
+                <mat-icon>edit</mat-icon>
+              </button>
+            </div>
+            <div class="button-container">
+              <button mat-button (click)="deleteMusicById(music.id)"class="icon-button">
+                <span>Delete</span>
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </div>
+
         </div>
-        <div class="music-list">
-          <button mat-button (click)="getMusicById(music.id)">
-            <mat-icon>edit</mat-icon>
-          </button>
-          <button mat-button (click)="deleteMusicById(music.id)">
-            <mat-icon>remove_circle_outline</mat-icon>
-          </button>
-      </div>
-    </div>
       }
     </div>
 </div>
