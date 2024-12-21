@@ -114,35 +114,37 @@ export class UploadmusicService {
   searchMusicRealtime(searchTerm: string, callback: (results: MusicModel[]) => void): void {
     const musicCollection = collection(this.db, 'music');
 
-    const titleQuery = query(musicCollection, where('title','>=', searchTerm), where('title', '<=', searchTerm + '\uf8ff'));
-    const artistQuery = query(musicCollection, where('artist', '>=', searchTerm), where('artist', '<=', searchTerm + '\uf8ff'));
-    const singerQuery = query(musicCollection, where('singer', '>=', searchTerm), where('singer', '<=', searchTerm + '\uf8ff'));
+    // Truy vấn tất cả dữ liệu từ Firestore
+    const musicQuery = query(musicCollection);
 
-    const results: MusicModel[] = [];
-    const uniqueIds = new Set<string>(); // Bộ lọc các ID duy nhất
+    // Mảng lưu trữ kết quả và bộ lọc ID duy nhất
+    const uniqueIds = new Set<string>();
 
-    const addToResults = (querySnapshot: any) => {
-      querySnapshot.docs.forEach((doc: any) => {
+    // Lấy dữ liệu từ Firestore và áp dụng bộ lọc
+    onSnapshot(musicQuery, (querySnapshot) => {
+      const results: MusicModel[] = []; // Đặt lại mảng mỗi lần snapshot
+
+      querySnapshot.docs.forEach((doc) => {
         const music = doc.data() as MusicModel;
-        if (!uniqueIds.has(music.id)) { // Kiểm tra trùng lặp ID
+        const title = music.title || '';
+        const artist = music.artist || '';
+        const singer = music.singer || '';
+        const searchTermLower = searchTerm.toLowerCase();
+
+        // Lọc dữ liệu theo searchTerm và tránh trùng lặp ID
+        if (
+          !uniqueIds.has(music.id) &&
+          (title.toLowerCase().includes(searchTermLower) ||
+            artist.toLowerCase().includes(searchTermLower) ||
+            singer.toLowerCase().includes(searchTermLower))
+        ) {
           uniqueIds.add(music.id);
           results.push(music);
         }
       });
-    };
 
-    onSnapshot(titleQuery, (querySnapshot) => {
-      addToResults(querySnapshot);
-    });
-
-    onSnapshot(artistQuery, (querySnapshot) => {
-      addToResults(querySnapshot);
-    });
-
-    onSnapshot(singerQuery, (querySnapshot) => {
-      addToResults(querySnapshot);
-      callback(results); // Trả về kết quả cuối cùng
+      // Gọi callback để trả kết quả
+      callback(results);
     });
   }
-
 }

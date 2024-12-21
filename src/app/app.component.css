@@ -70,7 +70,7 @@
   align-items: flex-start;
   height: 100vh;
   width: 100%;
-  background-color: #000; /* Nền đen */
+  background-color: #333; /* Nền đen */
   overflow-y: auto;
   gap: 100px;
 }
@@ -86,7 +86,7 @@
   margin-top: 10px;
   cursor: pointer;
   border-radius: 8px;
-  background-color: #111; /* Nền đen nhạt hơn */
+  background-color: #333; /* Nền đen nhạt hơn */
   color: white; /* Chữ trắng */
   max-width: 400px;
 }
@@ -130,7 +130,7 @@ input::placeholder {
 }
 
 .example-button-row button:hover {
-  background-color: black;
+  background-color: #333;
   color: orange; /* Hiệu ứng hover nút */
 }
 
@@ -154,7 +154,7 @@ input::placeholder {
   overflow-y: auto;
   border: 1px solid orange; /* Viền cam */
   padding: 10px;
-  background-color: #111; /* Nền đen nhạt */
+  background-color: #333; /* Nền đen nhạt */
   color: white; /* Chữ trắng */
 }
 
@@ -197,7 +197,7 @@ input::placeholder {
   width: 100%;
   margin-top: 10px;
   outline: none;
-  background-color: #111; /* Background color of the audio control */
+  background-color: #333; /* Background color of the audio control */
   color: orange; /* Color of the text and controls */
   border-radius: 5px; /* Rounded corners */
   padding: 5px; /* Padding inside the audio control */
